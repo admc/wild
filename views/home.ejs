@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/hot-sneaks/jquery-ui-1.8.22.custom.css' />
+    <link rel='stylesheet' href='/video-js/video-js.css' />
+    <script src="/javascripts/jquery-1.7.2.min.js"></script>
+    <script src="/javascripts/pouch.alpha.min.js"></script>
+    <script src="/javascripts/jquery-ui-1.8.22.custom.min.js"></script>
+    <script src="/video-js/video.js"></script>
+    <script src="/audiojs/audio.min.js"></script>
+    <script src="/javascripts/immersion.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io.connect("http://localhost");
+      socket.on("news", function (data) {
+        console.log(data);
+        socket.emit("my other event", { my: "data" });
+      });
+    </script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>A new take on language learning.</p>
+
+    <video id="videoPortal" class="video-js vjs-default-skin" controls
+      preload="auto" width="640" height="360" poster="/images/smile.jpg"
+      data-setup="{}">
+      <source src="/media/mountains/video.webm" type='video/webm'>
+    </video>
+
+    <audio src="/media/mountains/06-43.mp3" controls preload="auto" autobuffer></audio>
+
+    <div id="words"></div>
+
+  </body>
+</html>
