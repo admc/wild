@@ -1,14 +1,24 @@
 {
-  "name": "immersion",
-  "version": "0.0.1",
+  "name": "wild",
+  "version": "0.0.1-1",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "node app.js"
   },
   "dependencies": {
     "express": "3.0.0rc2",
-    "ejs": "*",
-    "less-middleware": "*",
-    "socket.io": "*"
+    "ejs": "latest",
+    "less-middleware": "latest",
+    "socket.io": "latest",
+    "passport": "0.1.x",
+    "passport-twitter": "0.1.x"
+  },
+  "subdomain": "wild",
+  "domains": [
+    "wild.io",
+    "www.wild.io"
+  ],
+  "engines": {
+    "node": "0.8.x"
   }
 }

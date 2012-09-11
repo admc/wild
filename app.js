@@ -10,7 +10,7 @@ var express = require('express')
   , twitterCreds = require('./twitter-creds.json');
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  app.set('port', process.env.PORT || 80);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   app.use(express.favicon());
