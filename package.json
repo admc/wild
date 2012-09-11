@@ -1,14 +1,21 @@
 {
-  "name": "immersion",
+  "name": "wild",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "wonderful immersive language directory"
   },
   "dependencies": {
     "express": "3.0.0rc2",
     "ejs": "*",
     "less-middleware": "*",
-    "socket.io": "*"
+    "socket.io": "*",
+    "passport": "*",
+    "passport-twitter": "*",
+    "leveldb": "*",
+    "zc": "*",
+    "fluent-ffmpeg": "*",
+    "node-transloadit": "*",
+    "wd-gtranslate": "*"
   }
 }
