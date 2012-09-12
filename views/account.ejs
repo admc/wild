@@ -1,0 +1,28 @@
+<link rel='stylesheet' href='/video-js/video-js.css' />
+<script src="/javascripts/pouch.alpha.min.js"></script>
+<script src="/video-js/video.js"></script>
+<script src="/audiojs/audio.min.js"></script>
+<script src="/javascripts/immersion.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect("http://localhost");
+  socket.on("news", function (data) {
+    console.log(data);
+    socket.emit("my other event", { my: "data" });
+  });
+</script>
+<h1><%= title %></h1>
+<p>A new take on language learning.</p>
+
+<p>Username: <%= user.username %></p>
+<p>Email: <%= user.email %></p>
+
+<video id="videoPortal" class="video-js vjs-default-skin" controls
+  preload="auto" width="640" height="360" poster="/images/smile.jpg"
+  data-setup="{}">
+  <source src="/media/mountains/video.webm" type='video/webm'>
+</video>
+
+<audio src="/media/mountains/06-43.mp3" controls preload="auto" autobuffer></audio>
+
+<div id="words"></div>
