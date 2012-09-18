@@ -3,7 +3,7 @@ exports.index = function(req, res){
 };
 
 exports.share = function(req, res){
-  res.render('share', { user: req.user, title: 'Share' });
+  res.render('share', { user: req.user, postshit: req.body, title: 'Share' });
 };
 
 exports.account = function(req, res){
