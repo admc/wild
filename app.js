@@ -8,11 +8,13 @@ var express = require('express')
   , passport = require('passport')
   , flash = require('connect-flash')
   , partials = require('express-partials')
-  , LocalStrategy = require('passport-local').Strategy;
-
+  , LocalStrategy = require('passport-local').Strategy
+  , couchdb = require('nano')('http://adam:n1njas@nodejitsudb910979441882.iriscouch.com:5984')
+  , users = couchdb.use('users')
+  
   app.use(partials());
 
-var users = [
+/*var users = [
     { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' }
   , { id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com' }
 ];
@@ -24,37 +26,37 @@ function findById(id, fn) {
   } else {
     fn(new Error('User ' + id + ' does not exist'));
   }
-}
+}*/
 
 function findByUsername(username, fn) {
-  for (var i = 0, len = users.length; i < len; i++) {
-    var user = users[i];
-    if (user.username === username) {
-      return fn(null, user);
+  users.get(username, { revs_info: false}, function(err, body) {
+    if (!err) {
+      body.username = username;
+      return fn(null, body);
     }
-  }
-  return fn(null, null);
+    else {
+      return fn(null, null);
+    }
+  });
 }
 
 passport.serializeUser(function(user, done) {
-  done(null, user.id);
+  done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
-  findById(id, function (err, user) {
-    done(err, user);
+  users.get(id, { revs_info: false }, function(err, body) {
+    if (!err) {
+      body.username = id;
+      done(err, body);
+    }
   });
 });
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    // asynchronous verification, for effect...
     process.nextTick(function () {
       
-      // Find the user by username.  If there is no user with the given
-      // username, or the password is not correct, set the user to `false` to
-      // indicate failure and set a flash message.  Otherwise, return the
-      // authenticated `user`.
       findByUsername(username, function(err, user) {
         if (err) { return done(err); }
         if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
@@ -83,53 +85,26 @@ app.configure(function(){
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
-
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
 app.get('/', routes.index);
 app.get('/share', ensureAuthenticated, routes.share);
-app.post('/share', routes.share);
+app.post('/share', ensureAuthenticated, routes.share);
 app.get('/account', ensureAuthenticated, routes.account);
 
 
-app.get('/login', function(req, res){
+app.get('/login', function(req, res) {
   res.render('login', { user: req.user, message: req.flash('error') });
 });
 
-// POST /login
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  If authentication fails, the user will be redirected back to the
-//   login page.  Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
-//
-//   curl -v -d "username=bob&password=secret" http://127.0.0.1:3000/login
 app.post('/login', 
   passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
   function(req, res) {
     res.redirect('/');
   });
   
-// POST /login
-//   This is an alternative implementation that uses a custom callback to
-//   acheive the same functionality.
-/*
-app.post('/login', function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
-    if (err) { return next(err) }
-    if (!user) {
-      req.flash('error', info.message);
-      return res.redirect('/login')
-    }
-    req.logIn(user, function(err) {
-      if (err) { return next(err); }
-      return res.redirect('/users/' + user.username);
-    });
-  })(req, res, next);
-});
-*/
-
 app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');

@@ -1,6 +1,6 @@
 {
   "name": "wild",
-  "version": "0.0.1-8",
+  "version": "0.0.1-9",
   "private": true,
   "scripts": {
     "start": "node app.js"
@@ -15,7 +15,8 @@
     "passport-local": "~0.1.6",
     "connect-flash": "~0.1.0",
     "express-ejs-layouts": "~0.2.0",
-    "express-partials": "0.0.6"
+    "express-partials": "0.0.6",
+    "nano": "~3.3.2"
   },
   "subdomain": "wild",
   "domains": [
