@@ -89,6 +89,7 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
+app.get('/share', routes.share);
 app.get('/account', ensureAuthenticated, routes.account);
 
 
