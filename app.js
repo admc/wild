@@ -89,7 +89,8 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
-app.get('/share', routes.share);
+app.get('/share', ensureAuthenticated, routes.share);
+app.post('/share', routes.share);
 app.get('/account', ensureAuthenticated, routes.account);
 
 
@@ -148,5 +149,5 @@ io.sockets.on('connection', function (socket) {
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/')
+  res.redirect('/login')
 }
