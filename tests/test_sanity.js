@@ -73,8 +73,8 @@ browsers.test = function(browser, desired) {
     browser.clickElement(dropDown);
     var homeLink = browser.elementByLinkText("Home");
     browser.clickElement(homeLink);
-    var headerText = browser.elementByTagName("h1")
-    assert.equal(browser.text(headerText), "Account");
+    var accountText = browser.elementByTagName("h1")
+    assert.equal(browser.text(accountText), "Account");
 
     var logoutLink = browser.elementByLinkText("Logout");
     browser.clickElement(logoutLink);
