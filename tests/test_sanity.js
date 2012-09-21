@@ -74,7 +74,7 @@ browsers.test = function(browser, desired) {
     var homeLink = browser.elementByLinkText("Home");
     browser.clickElement(homeLink);
     var accountText = browser.elementByTagName("h1")
-    assert.equal(browser.text(accountText), "Account");
+    assert.equal(browser.text(accountText), "Immersion");
 
     var logoutLink = browser.elementByLinkText("Logout");
     browser.clickElement(logoutLink);
