@@ -14,20 +14,6 @@ var express = require('express')
   
   app.use(partials());
 
-/*var users = [
-    { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' }
-  , { id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com' }
-];
-
-function findById(id, fn) {
-  var idx = id - 1;
-  if (users[idx]) {
-    fn(null, users[idx]);
-  } else {
-    fn(new Error('User ' + id + ' does not exist'));
-  }
-}*/
-
 function findByUsername(username, fn) {
   users.get(username, { revs_info: false}, function(err, body) {
     if (!err) {
