@@ -50,35 +50,36 @@ var desired = [
 browsers.test = function(browser, desired) {
 
     browser.init(desired);
+    browser.get("http://wild.io");
     browser.setWaitTimeout(3000);
 
-    browser.get("http://google.com");
-    var title = browser.title();
-    assert.ok(~title.indexOf("Immersion"));
+    assert.equal(browser.title(), "Immersion");
 
     var usernameField = browser.elementByName("username");
     var passwordField = browser.elementByName("password");
     var submitField = browser.elementByName("submit");
+
     browser.type(usernameField, "bob");
     browser.type(passwordField, "secret");
-    browser.click(submitField)
+    browser.clickElement(submitField)
 
     var shareButton = browser.elementById("shareButton");
-    browser.click(shareButton);
+    browser.clickElement(shareButton);
 
     var headerText = browser.elementByTagName("h1")
     assert.equal(browser.text(headerText), "Share");
 
     var dropDown = browser.elementByLinkText("Account");
-    browser.click(dropDown);
+    browser.clickElement(dropDown);
     var homeLink = browser.elementByLinkText("Home");
-    browser.click(homeLink);
+    browser.clickElement(homeLink);
     var headerText = browser.elementByTagName("h1")
     assert.equal(browser.text(headerText), "Account");
 
     var logoutLink = browser.elementByLinkText("Logout");
+    browser.clickElement(logoutLink);
 
     browser.quit();
 };
 
-browsers.run(p_desired);
+browsers.run(desired);
