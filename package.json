@@ -1,21 +1,30 @@
 {
   "name": "wild",
-  "version": "0.0.1",
+  "version": "0.0.1-10",
   "private": true,
   "scripts": {
-    "start": "wonderful immersive language directory"
+    "start": "node app.js"
   },
   "dependencies": {
     "express": "3.0.0rc2",
-    "ejs": "*",
-    "less-middleware": "*",
-    "socket.io": "*",
-    "passport": "*",
-    "passport-twitter": "*",
-    "leveldb": "*",
-    "zc": "*",
-    "fluent-ffmpeg": "*",
-    "node-transloadit": "*",
-    "wd-gtranslate": "*"
+    "ejs": "latest",
+    "less-middleware": "latest",
+    "socket.io": "latest",
+    "passport": "0.1.x",
+    "passport-twitter": "0.1.x",
+    "passport-local": "~0.1.6",
+    "connect-flash": "~0.1.0",
+    "express-ejs-layouts": "~0.2.0",
+    "express-partials": "0.0.6",
+    "nano": "~3.3.2"
+  },
+  "subdomain": "wild",
+  "domains": [
+    "wild.io",
+    "www.wild.io"
+  ],
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
   }
 }
