@@ -132,7 +132,6 @@ app.post('/share', function(req, res) {
     console.info(body);
     if (!err) {
       var uObj = body;
-      uObj._rev = body._rev;
       uObj.media.push(vObj);
       users.insert(uObj, req.user, function(err, body) {
         if (!err) { console.info("Updated users media collection"); }
