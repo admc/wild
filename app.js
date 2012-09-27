@@ -142,6 +142,11 @@ app.post('/share', function(req, res) {
       });
     }
   }); */
+  console.info(req.body);
+  console.info(req.body.transloadit);
+  console.info(typeof(req.body.transloadit));
+  console.info(JSON.parse(req.body.trasnloadit));
+  console.info(JSON.parse(req.body.trasnloadit).results);
 
   res.render('share', { user: req.user, postshit: req.body.transloadit.results, title: 'Share' });
 });
