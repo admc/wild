@@ -119,17 +119,19 @@ app.get('/share', function(req, res) {
 
 app.post('/share', function(req, res) {
   var post = JSON.stringify(req.body);
+  console.log(post.transloadit);
   var vObj = post.transloadit.results.webm_video[0];
   vObj.username = req.user;
 
-  console.log(post.transloadit.results.webm_video[0].id);
+  //console.log(post.transloadit.results.webm_video[0].id);
 
   //put this in available media
   media.insert(usersMedia, vObj.id, function(err, body) {
     if (!err) { console.log("inserted new media document"); }
   });
 
-  //get the user
+  //get the users
+  /*
   users.get(req.user, { revs_info: true}, function(err, body) {
     if (!err) {
       console.log("got the user");
@@ -141,7 +143,7 @@ app.post('/share', function(req, res) {
         if (!err) { console.log("Updated users media collection"); }
       });
     }
-  });
+  }); */
 
   res.render('share', { user: req.user, postshit: vObj, title: 'Share' });
 });
