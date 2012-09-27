@@ -12,7 +12,7 @@ var express = require('express')
   , couchdb = require('nano')('http://adam:n1njas@nodejitsudb910979441882.iriscouch.com:5984')
   , users = couchdb.use('im_users')
   , media = couchdb.use('im_media');
-  
+
   app.use(partials());
 
 function findByUsername(username, fn) {
@@ -43,7 +43,6 @@ passport.deserializeUser(function(id, done) {
 passport.use(new LocalStrategy(
   function(username, password, done) {
     process.nextTick(function () {
-      
       findByUsername(username, function(err, user) {
         if (err) { return done(err); }
         if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
@@ -58,8 +57,6 @@ app.configure(function() {
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
-  app.set('couchdb', couchdb);
-  app.set('users', users);
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
@@ -87,7 +84,7 @@ app.get('/signup', function(req, res) {
 
 app.post('/signup', function(req, res) {
   var bObj = req.body;
-  var uObj = {password: bObj.password, email: bObj.email, media: {}}; 
+  var uObj = {password: bObj.password, email: bObj.email, media: []};
 
   if (bObj.username && bObj.password && bObj.email) {
     users.insert(uObj, req.body.username, function(err, body) {
@@ -105,12 +102,12 @@ app.get('/login', function(req, res) {
   res.render('login', { user: req.user, message: req.flash('error') });
 });
 
-app.post('/login', 
+app.post('/login',
   passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
   function(req, res) {
     res.redirect('/');
   });
-  
+
 app.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
@@ -120,14 +117,33 @@ app.get('/share', function(req, res) {
   res.render('share', { user: req.user, postshit:"", title: 'Share' });
 });
 
-app.post('/share', ensureAuthenticated, function(req, res) {
+app.post('/share', function(req, res) {
   var post = JSON.stringify(req.body);
-  users.get(req.user, { revs_info: false}, function(err, body) {
-    if (!err) {
-      console.log(body);
-    }
-    res.render('share', { user: req.user, postshit: post, title: 'Share' });
+  var vObj = post.transloadit.results.webm_video[0];
+  vObj.username = req.user;
+
+  console.log(post.transloadit.results.webm_video[0].id);
+
+  //put this in available media
+  media.insert(usersMedia, vObj.id, function(err, body) {
+    if (!err) { console.log("inserted new media document"); }
   });
+
+  //get the user
+  users.get(req.user, { revs_info: true}, function(err, body) {
+    if (!err) {
+      console.log("got the user");
+      console.log(body);
+      var uObj = body;
+      uObj._rev = body._rev;
+      uObj.media.push(post.transloadit.results.webm_video[0]);
+      users.insert(uObj, req.user, function(err, body) {
+        if (!err) { console.log("Updated users media collection"); }
+      });
+    }
+  });
+
+  res.render('share', { user: req.user, postshit: vObj, title: 'Share' });
 });
 
 server.listen(app.get('port'), function() {
