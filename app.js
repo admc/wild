@@ -118,6 +118,7 @@ app.get('/share', function(req, res) {
 });
 
 app.post('/share', function(req, res) {
+  throw(req.body);
   var vObj = req.body.results.webm_video[0];
   vObj.username = req.user;
 
