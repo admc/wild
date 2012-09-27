@@ -142,10 +142,14 @@ app.post('/share', function(req, res) {
       });
     }
   }); */
+  
+  var tl = JSON.parse(req.body.transloadit).results;
+  console.info("FUCK THE POLICE");
   console.info(JSON.parse(req.body.transloadit));
-  console.info(JSON.parse(req.body.transloadit).results);
+  console.info(JSON.parse(req.body.transloadit).results.webm_video[0]);
+  console.info("ALL YOUR BASE");
 
-  res.render('share', { user: req.user, postshit: JSON.stringify(req.body.transloadit), title: 'Share' });
+  res.render('share', { user: req.user, postshit: JSON.stringify(tl), title: 'Share' });
 });
 
 server.listen(app.get('port'), function() {
