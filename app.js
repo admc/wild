@@ -118,15 +118,13 @@ app.get('/share', function(req, res) {
 });
 
 app.post('/share', function(req, res) {
-  /*var vObj = req.body.results.webm_video[0];
-  vObj.username = req.user;*/
-
-  //console.log(post.transloadit.results.webm_video[0].id);
+  var vObj = JSON.parse(req.body.transloadit).results.webm_video[0];
+  vObj.username = req.user;
 
   //put this in available media
-  /*media.insert(vObj, vObj.id, function(err, body) {
+  media.insert(vObj, vObj.id, function(err, body) {
     if (!err) { console.log("inserted new media document"); }
-  });*/
+  });
 
   //get the users
   /*
@@ -143,13 +141,7 @@ app.post('/share', function(req, res) {
     }
   }); */
   
-  var tl = JSON.parse(req.body.transloadit).results;
-  console.info("FUCK THE POLICE");
-  console.info(JSON.parse(req.body.transloadit));
-  console.info(JSON.parse(req.body.transloadit).results.webm_video[0]);
-  console.info("ALL YOUR BASE");
-
-  res.render('share', { user: req.user, postshit: JSON.stringify(tl), title: 'Share' });
+  res.render('share', { user: req.user, postshit: JSON.stringify(vObj.meta), title: 'Share' });
 });
 
 server.listen(app.get('port'), function() {
