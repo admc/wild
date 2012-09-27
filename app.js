@@ -118,8 +118,7 @@ app.get('/share', function(req, res) {
 });
 
 app.post('/share', function(req, res) {
-  var post = JSON.stringify(req.body);
-  var vObj = post.results.webm_video[0];
+  var vObj = req.body.results.webm_video[0];
   vObj.username = req.user;
 
   //console.log(post.transloadit.results.webm_video[0].id);
