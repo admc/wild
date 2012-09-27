@@ -113,7 +113,7 @@ app.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-app.get('/share', function(req, res) {
+app.get('/share', ensureAuthenticated, function(req, res) {
   res.render('share', { user: req.user, postshit:"", title: 'Share' });
 });
 
@@ -128,19 +128,19 @@ app.post('/share', function(req, res) {
 
   //Update the users contributed media
   users.get(req.user, { revs_info: true}, function(err, body) {
+    console.info("got the user");
+    console.info(body);
     if (!err) {
-      console.info("got the user");
-      console.info(body);
       var uObj = body;
       uObj._rev = body._rev;
-      uObj.media.push(post.transloadit.results.webm_video[0]);
+      uObj.media.push(vObj);
       users.insert(uObj, req.user, function(err, body) {
         if (!err) { console.info("Updated users media collection"); }
       });
     }
   });
   
-  res.render('share', { user: req.user, postshit: JSON.stringify(vObj.meta), title: 'Share' });
+  res.render('share', { user: req.user, postshit: "Thanks!", title: 'Share' });
 });
 
 server.listen(app.get('port'), function() {
