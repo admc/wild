@@ -126,20 +126,19 @@ app.post('/share', function(req, res) {
     if (!err) { console.log("inserted new media document"); }
   });
 
-  //get the users
-  /*
+  //Update the users contributed media
   users.get(req.user, { revs_info: true}, function(err, body) {
     if (!err) {
-      console.log("got the user");
-      console.log(body);
+      console.info("got the user");
+      console.info(body);
       var uObj = body;
       uObj._rev = body._rev;
       uObj.media.push(post.transloadit.results.webm_video[0]);
       users.insert(uObj, req.user, function(err, body) {
-        if (!err) { console.log("Updated users media collection"); }
+        if (!err) { console.info("Updated users media collection"); }
       });
     }
-  }); */
+  });
   
   res.render('share', { user: req.user, postshit: JSON.stringify(vObj.meta), title: 'Share' });
 });
