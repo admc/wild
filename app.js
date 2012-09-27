@@ -143,7 +143,7 @@ app.post('/share', function(req, res) {
     }
   }); */
 
-  res.render('share', { user: req.user, postshit: JSON.stringify(req.body.transloadit.results), title: 'Share' });
+  res.render('share', { user: req.user, postshit: req.body.transloadit.results, title: 'Share' });
 });
 
 server.listen(app.get('port'), function() {
