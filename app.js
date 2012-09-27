@@ -119,14 +119,13 @@ app.get('/share', function(req, res) {
 
 app.post('/share', function(req, res) {
   var post = JSON.stringify(req.body);
-  console.log(post.transloadit);
-  var vObj = post.transloadit.results.webm_video[0];
+  var vObj = post.results.webm_video[0];
   vObj.username = req.user;
 
   //console.log(post.transloadit.results.webm_video[0].id);
 
   //put this in available media
-  media.insert(usersMedia, vObj.id, function(err, body) {
+  media.insert(vObj, vObj.id, function(err, body) {
     if (!err) { console.log("inserted new media document"); }
   });
 
