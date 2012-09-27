@@ -148,7 +148,7 @@ app.post('/share', function(req, res) {
   console.info(JSON.parse(req.body.trasnloadit));
   console.info(JSON.parse(req.body.trasnloadit).results);
 
-  res.render('share', { user: req.user, postshit: req.body.transloadit, title: 'Share' });
+  res.render('share', { user: req.user, postshit: JSON.stringify(req.body.transloadit), title: 'Share' });
 });
 
 server.listen(app.get('port'), function() {
