@@ -10,7 +10,8 @@ var express = require('express')
   , partials = require('express-partials')
   , LocalStrategy = require('passport-local').Strategy
   , couchdb = require('nano')('http://adam:n1njas@nodejitsudb910979441882.iriscouch.com:5984')
-  , users = couchdb.use('users')
+  , users = couchdb.use('im_users')
+  , media = couchdb.use('im_media');
   
   app.use(partials());
 
@@ -53,10 +54,12 @@ passport.use(new LocalStrategy(
   }
 ));
 
-app.configure(function(){
+app.configure(function() {
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
+  app.set('couchdb', couchdb);
+  app.set('users', users);
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
@@ -71,15 +74,32 @@ app.configure(function(){
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
-app.configure('development', function(){
+app.configure('development', function() {
   app.use(express.errorHandler());
 });
 
 app.get('/', routes.index);
-app.get('/share', ensureAuthenticated, routes.share);
-app.post('/share', ensureAuthenticated, routes.share);
 app.get('/account', ensureAuthenticated, routes.account);
 
+app.get('/signup', function(req, res) {
+  res.render('signup', {user: req.user, title: 'Signup' });
+});
+
+app.post('/signup', function(req, res) {
+  var bObj = req.body;
+  var uObj = {password: bObj.password, email: bObj.email, media: {}}; 
+
+  if (bObj.username && bObj.password && bObj.email) {
+    users.insert(uObj, req.body.username, function(err, body) {
+      if (!err) {
+        res.redirect('/login');
+      }
+      else {
+        res.render('signup', {user: req.user, title: 'Signup' });
+      }
+    });
+  }
+});
 
 app.get('/login', function(req, res) {
   res.render('login', { user: req.user, message: req.flash('error') });
@@ -91,13 +111,26 @@ app.post('/login',
     res.redirect('/');
   });
   
-app.get('/logout', function(req, res){
+app.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
 });
 
+app.get('/share', function(req, res) {
+  res.render('share', { user: req.user, postshit:"", title: 'Share' });
+});
 
-server.listen(app.get('port'), function(){
+app.post('/share', ensureAuthenticated, function(req, res) {
+  var post = JSON.stringify(req.body);
+  users.get(req.user, { revs_info: false}, function(err, body) {
+    if (!err) {
+      console.log(body);
+    }
+    res.render('share', { user: req.user, postshit: post, title: 'Share' });
+  });
+});
+
+server.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });
 

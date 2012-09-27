@@ -2,9 +2,7 @@ var webdriver = require('wd-parallel')
   , assert  = require('assert');
 
 var browsers = webdriver.remote(
-  "ondemand.saucelabs.com",80,
-  "immersion",
-  "3f51923e-ce03-455b-8ffb-bed488b76772"
+  "ondemand.saucelabs.com",80
 );
 
 var desired = [
