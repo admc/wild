@@ -119,7 +119,7 @@ app.get('/share', ensureAuthenticated, function(req, res) {
 
 app.post('/share', function(req, res) {
   var vObj = JSON.parse(req.body.transloadit).results.webm_video[0];
-  vObj.username = req.user;
+  vObj.username = req.user.username;
 
   //put this in available media
   media.insert(vObj, vObj.id, function(err, body) {
@@ -127,13 +127,14 @@ app.post('/share', function(req, res) {
   });
 
   //Update the users contributed media
-  users.get(req.user, { revs_info: true}, function(err, body) {
+  users.get(req.user.username, { revs_info: true}, function(err, body) {
     console.info("got the user");
     console.info(body);
     if (!err) {
+      console.info("no error in getting user");
       var uObj = body;
       uObj.media.push(vObj);
-      users.insert(uObj, req.user, function(err, body) {
+      users.insert(uObj, req.user.username, function(err, body) {
         if (!err) { console.info("Updated users media collection"); }
       });
     }
