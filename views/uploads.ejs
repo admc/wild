@@ -1,0 +1,11 @@
+<script type="text/javascript" src="/javascripts/jquery.transloadit2.js"></script>
+
+<h1><%= title %></h1>
+
+<ul>
+<%
+var uploadsArr = JSON.parse(uploads);
+for(upload in uploadsArr) {%>
+   <li><%= uploadsArr[upload] %></li>
+<% } %>
+</ul>

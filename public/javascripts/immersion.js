@@ -28,7 +28,10 @@ var show = function(part, when) {
     socket.emit("thing", { entry: "1" });
   });
 
-  $("#words").append(entry);
+  var link = $("<li>");
+  link.append(entry);
+
+  $("#words").append(link);
 }
 
 $(window).keydown(function(event){

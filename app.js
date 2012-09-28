@@ -76,10 +76,20 @@ app.configure('development', function() {
 });
 
 app.get('/', routes.index);
-app.get('/account', ensureAuthenticated, routes.account);
+app.get('/learn', ensureAuthenticated, function(req, res) {
+  res.render('learn', { user: req.user});
+});
+
+app.get('/uploads', ensureAuthenticated, function(req, res) {
+  var uploads = [];
+  for (upload in req.user.media) {
+    uploads.push(req.user.media[upload].name);
+  }
+  res.render('uploads', {user: req.user, uploads: JSON.stringify(uploads) });
+});
 
 app.get('/signup', function(req, res) {
-  res.render('signup', {user: req.user, title: 'Signup' });
+  res.render('signup', {user: req.user});
 });
 
 app.post('/signup', function(req, res) {
@@ -92,7 +102,7 @@ app.post('/signup', function(req, res) {
         res.redirect('/login');
       }
       else {
-        res.render('signup', {user: req.user, title: 'Signup' });
+        res.render('signup', {user: req.user});
       }
     });
   }
@@ -105,7 +115,7 @@ app.get('/login', function(req, res) {
 app.post('/login',
   passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/learn');
   });
 
 app.get('/logout', function(req, res) {
@@ -114,7 +124,7 @@ app.get('/logout', function(req, res) {
 });
 
 app.get('/share', ensureAuthenticated, function(req, res) {
-  res.render('share', { user: req.user, postshit:"", title: 'Share' });
+  res.render('share', { user: req.user, postshit:""});
 });
 
 app.post('/share', function(req, res) {
@@ -140,21 +150,28 @@ app.post('/share', function(req, res) {
     }
   });
   
-  res.render('share', { user: req.user, postshit: "Thanks!", title: 'Share' });
+  res.render('share', { user: req.user, postshit: "Thanks!"});
 });
 
 server.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });
 
+//socket.emit('news', { hello: 'world' });
 io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('thing', function (data) {
-    console.log(data);
+  media.list(function(err, body) {
+    if (!err) {
+      body.rows.forEach(function(doc) {
+        media.get(doc.id, { revs_info: false}, function(err, body) {
+          //emit over websockets
+          socket.emit('media', {name:body.name, url:body.url});
+        });
+      });
+    }
   });
 });
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
+  res.redirect('/')
 }

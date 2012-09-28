@@ -1,0 +1,62 @@
+<link rel='stylesheet' href='/video-js/video-js.css' />
+<script src="/video-js/video.js"></script>
+<script src="/audiojs/audio.min.js"></script>
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/immersion.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  $(document).ready(function() {
+    $("#learnLink").addClass("active");
+    var socket = io.connect("http://localhost");
+    socket.on("media", function (data) {
+      var vDiv = $("<li>");
+      var link = $("<a>");
+      link.attr("href", "javascript:void(0);");
+      link.html(data.name);
+      link.click(function() {
+        window.myPlayer.src(data.url);
+        window.myPlayer.play();
+      });
+      vDiv.append(link);
+      $("#mediaList").append(vDiv);
+    });
+  });
+</script>
+
+  <div class="wrapper">
+    <div id="main" class="primary primary-a">
+      <div class="content-a">
+        <h2>Learn</h2>
+        <br> 
+        <table style="padding-bottom:20px">
+          <tr>
+            <td>
+              <div style="overflow:auto; width:200px;height:300px;">
+                <h3 style="margin:5px">Media</h3>
+                <ul id="mediaList"></ul>
+              </div>
+            </td>
+            <td><div style="border:1px solid lightgray">
+              <video id="videoPortal" class="video-js vjs-default-skin" controls
+                preload="auto" width="640" height="360" poster="/images/poster.png"
+                data-setup="{}">
+                <source id="videoSource" src="" type='video/webm'>
+              </video></div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <h3 style="margin:5px">Words</h3>
+              <div style="height:200px;">
+                <div>Press W when you don't understand a word, S for a sentense.</div>
+                <ul id="words" style="height:150px;overflow:auto;"></ul>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <!-- <audio src="/media/mountains/06-43.mp3" controls preload="auto" autobuffer></audio> -->
+
+      </div>
+    </div>
+  </div>    

@@ -1,8 +1,26 @@
 <h1><%= title %></h1>
 
-<form id="signup" action="/signup" method="POST">
-  <p><input class="span2" type="text" name="username" placeholder="Username"></p>
-  <p><input class="span2" type="password" name="password" placeholder="Password"></p>
-  <p><input class="span2" type="text" name="email" placeholder="Email"></p>
+<form id="signup" action="/signup" method="POST" class="form-t">
+  <p>
+    <label for="username">Username</label>
+    <input type="text" name="username" placeholder="Username">
+  </p>
+  <p>
+    <label for="password">Password</label>
+    <input type="password" name="password" placeholder="Password">
+  </p>
+  <p>
+    <label for="email">Email</label>
+    <input type="text" name="email" placeholder="Email">
+  </p>
+  <p class="link-a">
+    <a href="./" class="button-fb">Facebook</a>
+  </p>
+  <p class="link-a a">
+    <a href="./" class="button-tw">Twitter</a>
+  </p>
+  <p class="row-submit">
+    <button name="submit" value="Submit" type="submit"><span>Login</span></button>
+  </p>
   <button type="submit" value="Submit" class="btn" name="submit">Sign in</button>
 </form>

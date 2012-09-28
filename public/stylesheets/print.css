@@ -1,0 +1,63 @@
+/*!
+ * Project:   SITE_NAME_GOES_HERE (print)
+ * Date:      YYYY/MM/DD
+/* ---------------------------------------- */
+
+* { margin: 0; padding: 0; }
+
+html { font-size: 100.01%; }
+body { background: #fff; font-size: 62.5%; }
+
+body, textarea, input, select, option, button { color: black; font-family: Calibri,Lucida Grande,Helvetica Neue,Helvetica,Arial,sans-serif; line-height: 1.5; }
+li, dt, dd, p, figure, th, td, caption, pre { font-size: 1.5em; } /*---*/ li *, li p, li li, dt *, dd *, p *, figure *, th *, td * { font-size: 1em; }
+div, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { display: block; margin: 0 0 15px; } :last-child { margin-bottom: 0 !important; } .last-child { margin-bottom: 0 !important; }
+
+/*! layout -------- */
+
+#root { }
+ #top { margin: 0 0 15px; padding: 0 0 15px; border-bottom: 1px solid #ccc; }
+  #logo { font: bold 2.4em Cambria,Georgia,serif; }
+   #logo a { color: #000; text-decoration: none; }
+  #skips { display: none; }
+  #nav { display: none; }
+ #content { }
+  #content a:after { content: " (" attr(href) ")"; color: #555; font-size: 0.8em; font-style: italic; }
+  #content a[href^="#"]:after { content: ""; }
+ #footer { margin: 15px 0 0; padding: 15px 0 0; border-top: 1px solid #ccc; }
+  #footer ul { display: none; }
+  #footer p { }
+
+/*! containers ---- */
+
+nav { display: none; }
+
+/*! helpers ------- */
+
+.offset { display: none; }
+
+/*! defaults ------ */
+
+form { }
+ button { overflow: visible; padding: 0 10px; }
+
+table { display: table; border-collapse: collapse; border-spacing: 0; }
+ table th, table td { padding: 5px 10px; border: 1px solid #ccc; }
+
+h1, h2, h3, h4, h5, h6 { margin: 20px 0 5px; color: #000; font-family: Cambria,Georgia,serif; line-height: 1.1; }
+h1 { margin-top: 0; font-size: 2.4em; }
+h2 { font-size: 2.0em; }
+h3 { font-size: 1.8em; }
+h4 { font-size: 1.6em; }
+h5 { font-size: 1.5em; text-transform: uppercase; }
+h6 { font-size: 1.4em; text-transform: uppercase; }
+
+ul, ol, dd, blockquote { padding-left: 30px; }
+ ul ul, ol ol, ul ol, ol ul { margin-bottom: 0; }
+
+a { color: #09f; text-decoration: underline; }
+
+img { max-width: 100% !important; height: auto !important; border-width: 0; image-rendering: optimizeQuality; -ms-interpolation-mode: bicubic; }
+
+pre { font-family: Consolas,Monaco,Courier New,monospace; white-space: pre-wrap; }
+
+hr, div.hr { overflow: hidden; width: 100%; height: 1px; margin: 15px 0; border: none; border-top: 1px solid #eee; background: none; font-size: 0; } div.hr * { display: none; }
