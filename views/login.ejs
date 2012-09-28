@@ -1,17 +1,30 @@
 <% if (message) { %>
 <p><%= message %></p>
 <% } %>
-<form action="/login" method="post">
-  <div>
-  <label>Username:</label>
-  <input type="text" name="username"/><br/>
+
+
+<div class="wrapper">
+  <div id="main" class="primary primary-a">
+    <div class="content-a">
+      <h2>Login</h2>
+      <br><br>
+			<form action="/login" method="post" class="form-t">
+				<p>
+					<label for="username">Username</label>
+					<input type="text" id="username" name="username" value="" />
+				</p>
+				<p>
+					<label for="password">Password</label>
+					<input type="password" id="password" name="password" value="" />
+					<a class="note" href="./">Forgot password?</a>
+				</p>
+				<p class="link-a a">
+					<a href="http://twitter.com/immerseproject" class="button-tw">Twitter</a>
+				</p>
+				<p class="row-submit">
+					<button name="submit" value="Submit" type="submit"><span>Login</span></button>
+				</p>
+			</form>
+    </div>
   </div>
-  <div>
-  <label>Password:</label>
-  <input type="password" name="password"/>
-  </div>
-  <div>
-  <input type="submit" value="Submit"/>
-  </div>
-</form>
-<p><small>Hint - bob:secret</small></p>
+</div>

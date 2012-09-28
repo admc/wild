@@ -76,6 +76,7 @@ app.configure('development', function() {
 });
 
 app.get('/', routes.index);
+app.get('/developers', routes.developers);
 app.get('/learn', ensureAuthenticated, function(req, res) {
   res.render('learn', { user: req.user});
 });

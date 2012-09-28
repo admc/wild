@@ -1,11 +1,17 @@
 <script type="text/javascript" src="/javascripts/jquery.transloadit2.js"></script>
 
-<h1><%= title %></h1>
+<div class="wrapper">
+  <div id="main" class="primary primary-a">
+    <div class="content-a">
+      <h2>Your Uploads</h2><br><br>
+      <ul>
+      <%
+      var uploadsArr = JSON.parse(uploads);
+      for(upload in uploadsArr) {%>
+         <li><%= uploadsArr[upload] %></li>
+      <% } %>
+      </ul>
 
-<ul>
-<%
-var uploadsArr = JSON.parse(uploads);
-for(upload in uploadsArr) {%>
-   <li><%= uploadsArr[upload] %></li>
-<% } %>
-</ul>
+      </div>
+   </div>
+</div>

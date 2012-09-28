@@ -1,26 +1,29 @@
-<h1><%= title %></h1>
-
-<form id="signup" action="/signup" method="POST" class="form-t">
-  <p>
-    <label for="username">Username</label>
-    <input type="text" name="username" placeholder="Username">
-  </p>
-  <p>
-    <label for="password">Password</label>
-    <input type="password" name="password" placeholder="Password">
-  </p>
-  <p>
-    <label for="email">Email</label>
-    <input type="text" name="email" placeholder="Email">
-  </p>
-  <p class="link-a">
-    <a href="./" class="button-fb">Facebook</a>
-  </p>
-  <p class="link-a a">
-    <a href="./" class="button-tw">Twitter</a>
-  </p>
-  <p class="row-submit">
-    <button name="submit" value="Submit" type="submit"><span>Login</span></button>
-  </p>
-  <button type="submit" value="Submit" class="btn" name="submit">Sign in</button>
-</form>
+<div class="wrapper">
+  <div id="main" class="primary primary-a">
+    <div class="content-a">
+      <h2>Sign up</h2>
+      <br><br>
+      <form id="signup" action="/signup" method="POST">
+        <p>
+          <label for="username">Username</label>
+          <input type="text" name="username">
+        </p><br>
+        <p>
+          <label for="password">Password</label>
+          <input type="password" name="password">
+        </p><br>
+        <p>
+          <label for="email">Email</label>
+          <input type="text" name="email">
+        </p>
+        <input name="submit" value="Sign up" type="submit"></input>
+        <!-- <p class="link-a">
+          <a href="./" class="button-fb">Facebook</a>
+        </p>
+        <p class="link-a a">
+          <a href="./" class="button-tw">Twitter</a>
+        </p> -->
+      </form>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,8 @@
 	<script type="text/javascript">head.js(
 		'javascripts/extras.js?v=1',
 		'javascripts/scripts.js?v=1'
-	);</script>
+	);
+  </script>
 	<link rel="stylesheet" type="text/css" href="stylesheets/screen.css?v=1" media="screen" />
 	<link rel="stylesheet" type="text/css" href="stylesheets/print.css?v=1" media="print" />
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
@@ -42,7 +43,7 @@
 				<p>
 					<label for="password">Password</label>
 					<input type="password" id="password" name="password" value="" />
-					<a class="note" href="./">Forgot password?</a>
+					<a class="note" href="javascript:alert('no')">Forgot password?</a>
 				</p>
 				<p class="link-a a">
 					<a href="http://twitter.com/immerseproject" class="button-tw">Twitter</a>
@@ -69,7 +70,7 @@
 			<nav id="nav">
 				<h2 class="offset">Navigation</h2>
 				<ul>
-					<li class="nav-home"><a href="/" accesskey="h"><span>Home</span></a><em> [h]</em></li>
+					<li class="nav-home"><a id="homeLink"  href="/" accesskey="h"><span>Home</span></a><em> [h]</em></li>
 					<li><a id="shareLink" href="/share" accesskey="1">Share</a><em> [1]</em></li>
           <li><a id="learnLink" href="/learn" accesskey="2">Learn</a><em> [2]</em></li>
 					<!--<li><a href="./" accesskey="3">Vocab</a><em> [3]</em></li>
@@ -82,21 +83,15 @@
   <% } %>
 
 	<section id="content">
-    <% if (user) { %>
-    <h3 style="float:right;margin-right:10px;">
-      welcome, <a href="javascript:void(0)"><%= user.username %>
-    </h3>
-    <% } %>
     <%- body %>
 	</section><!-- #content -->
 	<footer id="footer">
 		<div class="wrapper">
 			<nav id="nav-foot">
 				<ul>
-					<li><a href="/dev">Developers</a></li>
+					<li><a href="/developers">Developers</a></li>
 					<li><a href="/share">Share</a></li>
-					<li><a href="./">Twitter</a></li>
-					<li><a href="./">Facebook</a></li>
+					<li><a href="http://twitter.com/immerseproject">Twitter</a></li>
 				</ul>
 			</nav>
 		</div>
