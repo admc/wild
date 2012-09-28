@@ -36,12 +36,12 @@ var show = function(part, when) {
 
 $(window).keydown(function(event){
   if (event.keyCode == 87) {
-    show("word", myPlayer.currentTime());
+    var when = myPlayer.currentTime()
+    var socket = io.connect("http://localhost");
+    socket.emit("cut", { when: when });
+    show("word", when);
   }
   if (event.keyCode == 83) {
-    show("sentense", myPlayer.currentTime());
-  }
-  if (event.keyCode == 80) {
-    show("paragraph", myPlayer.currentTime());
+    show("sentence", myPlayer.currentTime());
   }
 });

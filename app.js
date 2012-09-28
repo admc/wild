@@ -158,17 +158,22 @@ server.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-//socket.emit('news', { hello: 'world' });
 io.sockets.on('connection', function (socket) {
-  media.list(function(err, body) {
-    if (!err) {
-      body.rows.forEach(function(doc) {
-        media.get(doc.id, { revs_info: false}, function(err, body) {
-          //emit over websockets
-          socket.emit('media', {name:body.name, url:body.url});
+  socket.on('cut', function(data) {
+    console.log("USE TRANSLOADUINNTO CUT HSUT");
+  });
+
+  socket.on('startMedia', function(data) {
+    media.list(function(err, body) {
+      if (!err) {
+        body.rows.forEach(function(doc) {
+          media.get(doc.id, { revs_info: false}, function(err, body) {
+            //emit over websockets
+            socket.emit('media', {name:body.name, url:body.url});
+          });
         });
-      });
-    }
+      }
+    });
   });
 });
 

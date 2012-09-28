@@ -8,6 +8,8 @@
   $(document).ready(function() {
     $("#learnLink").addClass("active");
     var socket = io.connect("http://localhost");
+    socket.emit('startMedia', { my: 'data' });
+
     socket.on("media", function (data) {
       var vDiv = $("<li>");
       var link = $("<a>");
@@ -52,7 +54,7 @@
             <td colspan="2">
               <h3 style="margin:5px">Words</h3>
               <div style="height:200px;">
-                <div>Press W when you don't understand a word, S for a sentense.</div>
+                <div>Press 'W' when you don't understand a word, 'S' for a sentense.</div>
                 <ul id="words" style="height:150px;overflow:auto;"></ul>
               </div>
             </td>
