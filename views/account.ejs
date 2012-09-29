@@ -1,0 +1,38 @@
+<script type="text/javascript" src="/javascripts/jquery.transloadit2.js"></script>
+
+<div class="wrapper">
+  <div id="main" class="primary primary-a">
+    <div class="content-a">
+      <h2>Contributions</h2><br>
+      <ul>
+      <%
+      var uploadsArr = JSON.parse(uploads);
+      for(upload in uploadsArr) {%>
+         <li><a href="#"><%= uploadsArr[upload].id %></a></li>
+      <% } %>
+      </ul>
+      <h2>Replicate from other Nodes</h2><br>
+        <ul>
+          <li>http://nodejitsudb910979441944333.iriscouch.com:5984  - ( French 12, German: 10 ) | <a href="#">Replicate to Local</a></li>
+          <li>http://nodejitsudb910979441343535.iriscouch.com:5984  - ( German: 10, Portuguese: 18 ) | <a href="#">Replicate to Local</a></li>
+          <li>http://nodejitsudb910979441443242.iriscouch.com:5984  - ( French: 20, Spanish: 30 ) | <a href="#">Replicate to Local</a></li>
+        </ul>
+      <h2>Extensions</h2>
+      <p>
+        <table>
+          <tr>
+            <td><center><div>Firefox</div><div><img src="/images/firefox.png"></center></td>
+            <td><center><div>Google Chrome</div><div><img src="/images/googlechrome.png"></center></td>
+          </tr>
+        </table>
+      </p>
+      </div>
+   </div>
+</div>
+<br><br>
+
+<script type="text/javascript">
+ $(document).ready(function() {
+  $("#accountLink").addClass("active");
+ });
+</script>

@@ -1,9 +1,7 @@
-<link rel='stylesheet' href='/jquery.simpledialog/jquery.simpledialog.0.1.css' />
 <link rel='stylesheet' href='/video-js/video-js.css' />
 <script src="/video-js/video.js"></script>
 <script src="/audiojs/audio.min.js"></script>
 <script src="/javascripts/jquery.min.js"></script>
-<script src="/jquery.simpledialog/jquery.simpledialog.0.1.pack.js"></script>
 <script src="/javascripts/immersion.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script>
@@ -25,7 +23,7 @@
       var vDiv = $("<li>");
       var link = $("<a>");
       link.attr("href", "javascript:void(0);");
-      link.html(data.name);
+      link.html(data.id);
       link.click(function() {
         window.currentURL = data.url;
         window.myPlayer.src(data.url);
@@ -89,12 +87,37 @@
         <h3 style="float:right;margin-right:10px;">
           welcome, <a href="/uploads"><%= user.username %></a>
         </h3>
+        <h2>Details</h2><br>
+        <form>
+        <p style="float:left;padding-right:10px;>
+          <label for="language">Pick a language: </label>
+          <select class="custom" id="language" name="language">
+            <option value="">Pick a language</option>
+            <option value="german">German</option>
+            <option value="portuguese">portuguese</option>
+            <option value="spanish">Spanish</option>
+            <option value="french">French</option>
+          </select>
+        </p>
+        <p style="float:left;padding-right:10px;">
+          <label for="difficulty">Level of difficulty: </label>
+          <select class="custom" id="difficulty" name="difficulty">
+            <option value="">Level of difficulty</option>
+            <option value="beginner">beginner</option>
+            <option value="intermediate">intermediate</option>
+            <option value="advanced">advanced</option>
+          </select>
+        </p>
+        <p class="row-submit">
+          <button value="Select" type="submit"><span><span>Select</span></span></button>
+        </p>
+        </form><br><br>
         <h2>Learn</h2>
         <br> 
         <table style="padding-bottom:20px">
           <tr>
             <td>
-              <div style="overflow:auto; width:200px;height:300px;">
+              <div style="overflow:auto; width:300px;height:300px;">
                 <h3 style="margin:5px">Media</h3>
                 <ul id="mediaList"></ul>
               </div>

@@ -3,33 +3,43 @@
 <div class="wrapper">
   <div id="main" class="primary primary-a">
     <div class="content-a">
+      <% if (id) { %>
+        <h2>Details Plz?</h2>
+        <p class="text-a">Thanks so much for sharing, can you give us some context for indexing?</p>
+        <form>
+          <p>
+            <label for="video-title">Title of Video</label>
+            <input type="text" id="video-title" name="video-title" value="" />
+          </p>
+          <p>
+            <label for="video-desc">Description</label>
+            <textarea id="video-desc" name="video-desc" rows="5" cols="53"></textarea>
+          </p>
+          <p>
+            <label for="video-difficulty">Level of difficulty</label>
+            <select class="custom" id="video-difficulty" name="video-difficulty">
+              <option value="">Level of difficulty</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </p>
+          <p class="row-submit">
+            <button value="Upload" type="submit"><span><span>Upload</span></span></button>
+          </p>
+        </form>
+      <br><br>
+      <% } %>
       <h2>Show us what you got</h2>
       <p class="text-a">Help the world find compelling content to learn from.</p>
-      <form class="form-a" id="MyForm" action="http://api2.transloadit.com/assemblies" enctype="multipart/form-data" method="POST">
+        <form class="form-a" id="MyForm" action="http://api2.transloadit.com/assemblies" enctype="multipart/form-data" method="POST">
         <input type="hidden" name="params" value="{&quot;auth&quot;:{&quot;key&quot;:&quot;29a54de7a68d4358baff0bb4f3a7652c&quot;},&quot;template_id&quot;:&quot;ff0cd45cd7374e6994a8ac2e44171a36&quot;,&quot;redirect_url&quot;:&quot;http://wild.io/share&quot;}" />
-        <p>
-          <label for="video-title">Title of Video</label>
-          <input type="text" id="video-title" name="video-title" value="" />
-        </p>
-        <p>
-          <label for="video-desc">Description</label>
-          <textarea id="video-desc" name="video-desc" rows="5" cols="53"></textarea>
-        </p>
-        <p>
-          <label for="video-difficulty">Level of difficulty</label>
-          <select class="custom" id="video-difficulty" name="video-difficulty">
-            <option value="">Level of difficulty</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
-        </p>
         <p>
           <input type="file" name="my_file" />
         </p>
-        <p class="row-submit">
-          <button value="Upload" type="submit"><span><span>Upload</span></span></button>
-        </p>
+          <p class="row-submit">
+            <button value="Upload" type="submit"><span><span>Upload</span></span></button>
+          </p>
       </form>
     </div>
   </div>
