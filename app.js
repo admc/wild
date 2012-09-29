@@ -11,12 +11,12 @@ var express = require('express')
   , LocalStrategy = require('passport-local').Strategy
   , request = require('request')
   , transloadit = require('node-transloadit')
-  , couchdb = require('nano')('http://adam:n1njas@nodejitsudb910979441882.iriscouch.com:5984')
+  , couchdb = require('nano')('localhost:5984')
   , users = couchdb.use('im_users')
   , media = couchdb.use('im_media');
 
-  var tlCreds = {"auth_key":"29a54de7a68d4358baff0bb4f3a7652c",
-                 "auth_secret": "6cb89a7691629797fb3926df7bb29a6e0762f8ec"};
+  var tlCreds = {"auth_key":"fill in",
+                 "auth_secret": "fill in"};
   var tlClient = new transloadit(tlCreds.auth_key, tlCreds.auth_secret);
 
 
