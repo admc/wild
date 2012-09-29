@@ -41,7 +41,7 @@
           wordLink.attr("listening", "true");
           wordLink.click(function() {
             var vDiv = $("<div>");
-            vDiv.css({"font-size":"18px", padding:"15px", position:"absolute", height:"280px", width:"450px", border:"1px solid darkgray", background: "white"});
+            vDiv.css({"font-size":"18px", padding:"15px", position:"absolute", height:"300px", width:"450px", border:"1px solid darkgray", background: "white"});
             vDiv.html('<h3>'+data.name+'</h3><audio src="'+data.url+'" controls preload="auto" autobuffer></audio>');
             var jumpLink = $("<a>");
             jumpLink.css("margin", "10px");
@@ -53,8 +53,12 @@
             vDiv.append(jumpLink);
 
             var transDiv = $("<div>");
-            transDiv.html("<br><h4>Enter your best guess:</h4><br><input></input><button>Search</button>");
+            transDiv.html("<h4>Enter your best guess:</h4>&nbsp;<input></input><button>Search</button>");
             vDiv.append(transDiv);
+
+            var tags = $("<div>");
+            tags.html("<h4>Meta:</h4>&nbsp;<input></input><button>Add</button>");
+            vDiv.append(tags);
 
             var closeLink = $("<a>");
             closeLink.css({"position":"absolute", "bottom":"10px", "left":"10px"});
