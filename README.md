@@ -1,43 +1,35 @@
-wild
-====
-
-"wonderful immersive language directory"
+Immersion -- "wonderful immersive language directory"
+===
 
 ### The GitHubs
 
-<div>
-    git clone https://github.com/admc/wild
+<pre>
+  git clone https://github.com/admc/wild
+</pre>
 
-</div>
-\
 
 ### The Jitsu
 
-<div>
-Get an account here: [http://nodejitsu.com][]
+  * Get an account here: [http://nodejitsu.com][]
 
-              > npm install -g jitsu
-              > cd wild
-              > cp package.json.dev package.json
-              > edit package.json to have a different subdomain
-              > jitsu users confirm username SOMESECRETCODE
-              > jitsu login
-              > git co -b jitsu
-              > jitsu deploy
-            
-
-</div>
-\
+<pre>
+  > npm install -g jitsu
+  > cd wild
+  > cp package.json.dev package.json
+  > edit package.json to have a different subdomain
+  > jitsu users confirm username SOMESECRETCODE
+  > jitsu login
+  > git co -b jitsu
+  > jitsu deploy
+</pre>
 
 ### Transloadit
 
-Get an S3 account: [http://aws.amazon.com/s3][]
+  * Get an S3 account: [http://aws.amazon.com/s3][]
+  * Then create a bucket to store your stuff.
 
-Then create a bucket to store your stuff.
-
-<div>
-Create a template called ‘clips’ as so (replacing with your S3 keys):
-
+  *Create a template called ‘clips’ as so (replacing with your S3 keys):
+<pre>
     {
       "steps": {
         "import": {
@@ -60,10 +52,11 @@ Create a template called ‘clips’ as so (replacing with your S3 keys):
         }
       }
     }
-            
+</pre>
 
-And another called ‘wild’:
+  * And another called ‘wild’:
 
+<pre>
     {
     "steps": {
       "webm_video": {
@@ -80,19 +73,15 @@ And another called ‘wild’:
       }
     }
     }
-            
+</pre>
 
-</div>
-### Irish Couches
+### Iris Couches
 
-<div>
-Get an account: [http://www.iriscouch.com][]
-
-            > cd wild
-            > vim app.js //edit the couchdb url to point to your instance
-           
-
-</div>
+  *Get an account: [http://www.iriscouch.com][]
+<pre>
+  > cd wild
+  > vim app.js //edit the couchdb url to point to your instance
+</pre>
 
   [http://nodejitsu.com]: http://nodejitsu.com
   [http://aws.amazon.com/s3]: http://aws.amazon.com/s3/"
