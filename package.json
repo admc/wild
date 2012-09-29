@@ -18,7 +18,9 @@
     "express-ejs-layouts": "~0.2.0",
     "express-partials": "0.0.6",
     "nano": "~3.3.2",
-    "wd-parallel": "0.0.1"
+    "wd-parallel": "0.0.1",
+    "node-transloadit": "0.0.2",
+    "request": "~2.11.4"
   },
   "subdomain": "wild",
   "domains": [

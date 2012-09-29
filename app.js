@@ -9,9 +9,16 @@ var express = require('express')
   , flash = require('connect-flash')
   , partials = require('express-partials')
   , LocalStrategy = require('passport-local').Strategy
+  , request = require('request')
+  , transloadit = require('node-transloadit')
   , couchdb = require('nano')('http://adam:n1njas@nodejitsudb910979441882.iriscouch.com:5984')
   , users = couchdb.use('im_users')
   , media = couchdb.use('im_media');
+
+  var tlCreds = {"auth_key":"29a54de7a68d4358baff0bb4f3a7652c",
+                 "auth_secret": "6cb89a7691629797fb3926df7bb29a6e0762f8ec"};
+  var tlClient = new transloadit(tlCreds.auth_key, tlCreds.auth_secret);
+
 
   app.use(partials());
 
@@ -160,7 +167,24 @@ server.listen(app.get('port'), function() {
 
 io.sockets.on('connection', function (socket) {
   socket.on('cut', function(data) {
-    console.log("USE TRANSLOADUINNTO CUT HSUT");
+    var params = {
+      template_id: '093261dddb9347d8a090124ade7f9c0c',
+      fields: {"ss": data.when - 5, "url": data.url}
+    };
+    
+    tlClient.send(params, function(info) {
+      var pollTL = setInterval(function() {
+        request(info.assembly_url, function (error, response, body) {
+          if (!error && response.statusCode == 200) {
+            var tlObj = JSON.parse(body);
+            if (tlObj.results.encode_clip) {
+              socket.emit('updateEntry', {url:tlObj.results.encode_clip[0].url, id: data.entry, name:tlObj.results.encode_clip[0].name});
+              clearInterval(pollTL);
+            }
+          }
+        })
+      }, 2000);
+    });
   });
 
   socket.on('startMedia', function(data) {

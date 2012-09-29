@@ -1,10 +1,21 @@
+<link rel='stylesheet' href='/jquery.simpledialog/jquery.simpledialog.0.1.css' />
 <link rel='stylesheet' href='/video-js/video-js.css' />
 <script src="/video-js/video.js"></script>
 <script src="/audiojs/audio.min.js"></script>
 <script src="/javascripts/jquery.min.js"></script>
+<script src="/jquery.simpledialog/jquery.simpledialog.0.1.pack.js"></script>
 <script src="/javascripts/immersion.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script>
+  jQuery.fn.center = function () {
+      this.css("position","absolute");
+      this.css("top", Math.max(0, (($(window).height() - this.outerHeight()) / 2) + 
+                                                  $(window).scrollTop()) + "px");
+      this.css("left", Math.max(0, (($(window).width() - this.outerWidth()) / 2) + 
+                                                  $(window).scrollLeft()) + "px");
+      return this;
+  }
+
   $(document).ready(function() {
     $("#learnLink").addClass("active");
     var socket = io.connect("http://localhost");
@@ -16,22 +27,68 @@
       link.attr("href", "javascript:void(0);");
       link.html(data.name);
       link.click(function() {
+        window.currentURL = data.url;
         window.myPlayer.src(data.url);
         window.myPlayer.play();
       });
       vDiv.append(link);
       $("#mediaList").append(vDiv);
     });
+
+    socket.on("updateEntry", function (data) {
+        var wordLink = $("#"+data.id);
+        wordLink.html("Word ready! (From ~ "+wordLink.attr("when")+" seconds.)");
+
+        if (!wordLink.attr("listening")) {
+          wordLink.attr("listening", "true");
+          wordLink.click(function() {
+            var vDiv = $("<div>");
+            vDiv.css({"font-size":"18px", padding:"15px", position:"absolute", height:"280px", width:"450px", border:"1px solid darkgray", background: "white"});
+            vDiv.html('<h3>'+data.name+'</h3><audio src="'+data.url+'" controls preload="auto" autobuffer></audio>');
+            var jumpLink = $("<a>");
+            jumpLink.css("margin", "10px");
+            jumpLink.css("cursor", "pointer");
+            jumpLink.html("Jump to..");
+            jumpLink.click(function() {
+              myPlayer.currentTime(wordLink.attr("when") - 3); 
+            });
+            vDiv.append(jumpLink);
+
+            var transDiv = $("<div>");
+            transDiv.html("<br><h4>Enter your best guess:</h4><br><input></input><button>Search</button>");
+            vDiv.append(transDiv);
+
+            var closeLink = $("<a>");
+            closeLink.css({"position":"absolute", "bottom":"10px", "left":"10px"});
+            closeLink.css("cursor", "pointer");
+            closeLink.html("Close");
+            closeLink.click(function() {
+              vDiv.remove();
+            }); 
+            var saveLink= $("<a>");
+            saveLink.css({"position":"absolute", "bottom":"10px", "right":"10px"});
+            saveLink.css("cursor", "pointer");
+            saveLink.html("Save");
+            saveLink.click(function() {
+              console.log('thanks');
+            });
+            vDiv.append(closeLink); 
+            vDiv.append(saveLink); 
+            $(document.body).append(vDiv);
+            vDiv.center();
+          });
+        }
+    });
   });
 </script>
 
-  <h3 style="float:right;margin-right:10px;">
-    welcome, <a href="/uploads"><%= user.username %></a>
-  </h3>
 
   <div class="wrapper">
     <div id="main" class="primary primary-a">
       <div class="content-a">
+        <h3 style="float:right;margin-right:10px;">
+          welcome, <a href="/uploads"><%= user.username %></a>
+        </h3>
         <h2>Learn</h2>
         <br> 
         <table style="padding-bottom:20px">
@@ -54,14 +111,13 @@
             <td colspan="2">
               <h3 style="margin:5px">Words</h3>
               <div style="height:200px;">
-                <div>Press 'W' when you don't understand a word, 'S' for a sentense.</div>
+                <div>Press 'W' when you don't understand a word.</div>
                 <ul id="words" style="height:150px;overflow:auto;"></ul>
               </div>
             </td>
           </tr>
         </table>
 
-        <!-- <audio src="/media/mountains/06-43.mp3" controls preload="auto" autobuffer></audio> -->
 
       </div>
     </div>
