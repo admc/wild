@@ -88,12 +88,12 @@ app.get('/learn', ensureAuthenticated, function(req, res) {
   res.render('learn', { user: req.user});
 });
 
-app.get('/uploads', ensureAuthenticated, function(req, res) {
+app.get('/account', ensureAuthenticated, function(req, res) {
   var uploads = [];
   for (upload in req.user.media) {
-    uploads.push(req.user.media[upload].name);
+    uploads.push(req.user.media[upload]);
   }
-  res.render('uploads', {user: req.user, uploads: JSON.stringify(uploads) });
+  res.render('account', {user: req.user, uploads: JSON.stringify(uploads) });
 });
 
 app.get('/signup', function(req, res) {
@@ -132,7 +132,7 @@ app.get('/logout', function(req, res) {
 });
 
 app.get('/share', ensureAuthenticated, function(req, res) {
-  res.render('share', { user: req.user, postshit:""});
+  res.render('share', { user: req.user, id:null});
 });
 
 app.post('/share', function(req, res) {
@@ -141,7 +141,9 @@ app.post('/share', function(req, res) {
 
   //put this in available media
   media.insert(vObj, vObj.id, function(err, body) {
-    if (!err) { console.log("inserted new media document"); }
+    if (!err) {
+      res.render('share', { user: req.user, id: vObj.id});
+    }
   });
 
   //Update the users contributed media
@@ -158,7 +160,6 @@ app.post('/share', function(req, res) {
     }
   });
   
-  res.render('share', { user: req.user, postshit: "Thanks!"});
 });
 
 server.listen(app.get('port'), function() {
@@ -193,7 +194,7 @@ io.sockets.on('connection', function (socket) {
         body.rows.forEach(function(doc) {
           media.get(doc.id, { revs_info: false}, function(err, body) {
             //emit over websockets
-            socket.emit('media', {name:body.name, url:body.url});
+            socket.emit('media', body);
           });
         });
       }

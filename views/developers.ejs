@@ -1,7 +1,88 @@
 <div class="wrapper">
   <div id="main" class="primary primary-a">
     <div class="content-a">
-      <h2>Developers</h2><br><br>
+      <h2>Developers</h2>
+      <p>Use your coding skills to help us lower the bar for language learning.</p><br>
+      
+      <h3>The GitHubs</h3> 
+      <div>
+        <pre>git clone https://github.com/admc/wild</pre>
+      </div><br>
+
+      <h3>The Jitsu</h3>
+      <div>
+        <p>Get an account here: <a href="http://nodejitsu.com">http://nodejitsu.com</a></p>
+        <pre>
+          > npm install -g jitsu
+          > cd wild
+          > cp package.json.dev package.json
+          > edit package.json to have a different subdomain
+          > jitsu users confirm username SOMESECRETCODE
+          > jitsu login
+          > git co -b jitsu
+          > jitsu deploy
+        </pre>
+      </div><br>
+
+      <h3>Transloadit</h3>
+      <p>Get an S3 account: <a href=http://aws.amazon.com/s3/">http://aws.amazon.com/s3</a></p>
+      <p>Then create a bucket to store your stuff.</p>
+
+      <div>
+        <p>Create a template called 'clips' as so (replacing with your S3 keys):</p>
+        <pre>
+{
+  "steps": {
+    "import": {
+      "robot": "/http/import",
+      "url": "${fields.url}"
+    },
+    "encode_clip":{
+      "robot": "/audio/encode",
+      "preset": "mp3",
+      "ffmpeg": {
+        "ss": "${fields.ss}",
+        "t": 5
+      }
+    },
+    "export": {
+      "robot": "/s3/store",
+      "key": "YOUR KEY HERE",
+      "secret": "YOUR SECRET HERE",
+      "bucket": "YOUR BUCKET NAME"
+    }
+  }
+}
+        </pre>
+        <p>And another called 'wild':</p>
+        <pre>
+{
+"steps": {
+  "webm_video": {
+    "robot": "/video/encode",
+    "preset": "webm",
+    "width": 640,
+    "height": 360
+  },
+  "export": {
+    "robot": "/s3/store",
+    "key": "YOUR KEY HERE",
+    "secret": "YOUR SECRET HERE",
+    "bucket": "YOUR BUCKET HERE"
+  }
+}
+}
+        </pre>
+      </div>
+
+      <h3>Irish Couches</h3>
+      <div>
+       <p>Get an account: <a href="http://www.iriscouch.com">http://www.iriscouch.com</a></p>
+       <pre>
+        > cd wild
+        > vim app.js //edit the couchdb url to point to your instance
+       </pre> 
+      </div>
 
       </div>
    </div>

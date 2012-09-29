@@ -1,0 +1,30 @@
+{
+  "name": "wild",
+  "version": "0.0.1-39",
+  "private": true,
+  "scripts": {
+    "start": "node app.js",
+    "test": "node tests/test_sanity.js"
+  },
+  "dependencies": {
+    "express": "3.0.0rc2",
+    "ejs": "latest",
+    "less-middleware": "latest",
+    "socket.io": "latest",
+    "passport": "0.1.x",
+    "passport-twitter": "0.1.x",
+    "passport-local": "~0.1.6",
+    "connect-flash": "~0.1.0",
+    "express-ejs-layouts": "~0.2.0",
+    "express-partials": "0.0.6",
+    "nano": "~3.3.2",
+    "wd-parallel": "0.0.1",
+    "node-transloadit": "0.0.2",
+    "request": "~2.11.4"
+  },
+  "subdomain": "your-sub-domain",
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  }
+}
