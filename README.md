@@ -28,7 +28,7 @@ Immersion -- "wonderful immersive language directory"
   * Get an S3 account: [http://aws.amazon.com/s3][]
   * Then create a bucket to store your stuff.
 
-  *Create a template called ‘clips’ as so (replacing with your S3 keys):
+  * Create a template called ‘clips’ as so (replacing with your S3 keys):
 <pre>
     {
       "steps": {
@@ -77,7 +77,7 @@ Immersion -- "wonderful immersive language directory"
 
 ### Iris Couches
 
-  *Get an account: [http://www.iriscouch.com][]
+  * Get an account: [http://www.iriscouch.com][]
 <pre>
   > cd wild
   > vim app.js //edit the couchdb url to point to your instance

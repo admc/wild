@@ -1,6 +1,6 @@
 {
   "name": "wild",
-  "version": "0.0.1-41",
+  "version": "0.0.1-47",
   "private": true,
   "scripts": {
     "start": "node app.js",
