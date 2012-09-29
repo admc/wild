@@ -1,13 +1,11 @@
-<% if (message) { %>
-<p><%= message %></p>
-<% } %>
-
-
 <div class="wrapper">
   <div id="main" class="primary primary-a">
     <div class="content-a">
       <h2>Login</h2>
       <br><br>
+      <% if (message) { %>
+      <p><%= message %></p>
+      <% } %>
 			<form action="/login" method="post" class="form-t">
 				<p>
 					<label for="username">Username</label>
