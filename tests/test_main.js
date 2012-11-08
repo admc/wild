@@ -8,7 +8,7 @@ browser = wd.remote(
 )
 
 var REMOTE_HOST = 'http://localhost'
-var REMOTE_PORT = process.env.PORT || 8000
+var REMOTE_PORT = process.env.PORT || 3000
 var BASE_URL = REMOTE_HOST + ":" + REMOTE_PORT + "/"
 console.log("BASE_URL: %s", BASE_URL)
 
@@ -47,15 +47,15 @@ describe("Selenium Tests: ", function() {
                         browser.title(function(err, title) {
                           assert.ok(~title.indexOf('Immersion'), 'Wrong Title')
                           done()
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
+                        })
+                      })
+                    })
+                  })
+                })
+              })
+            })
+          })
+        })
       })
     })
   })
