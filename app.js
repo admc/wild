@@ -159,7 +159,6 @@ app.post('/share', function(req, res) {
       });
     }
   });
-  
 });
 
 server.listen(app.get('port'), function() {
@@ -172,7 +171,7 @@ io.sockets.on('connection', function (socket) {
       template_id: '093261dddb9347d8a090124ade7f9c0c',
       fields: {"ss": data.when - 5, "url": data.url}
     };
-    
+
     tlClient.send(params, function(info) {
       var pollTL = setInterval(function() {
         request(info.assembly_url, function (error, response, body) {
@@ -204,5 +203,5 @@ io.sockets.on('connection', function (socket) {
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/')
+  res.redirect('/signup')
 }
