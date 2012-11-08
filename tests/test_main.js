@@ -31,22 +31,24 @@ describe("Selenium Tests: ", function() {
     browser.quit(done)
   })
 
-  it("test all the things", function(done) {
+  it("Login and Logout", function(done) {
     this.timeout(30000)
     browser.get(BASE_URL, function() {
       browser.title(function(err, title) {
         assert.ok(~title.indexOf('Immersion'), 'Wrong Title')
-        browser.elementByName("username", function(el) {
+        browser.elementByName("username", function(err, el) {
           browser.type(el, "bob", function() {
-            browser.elementByName("username", function(el) {
+            browser.elementByName("password", function(err, el) {
               browser.type(el, "secret", function() {
-                browser.elementByName("submit", function(el) {
+                browser.elementByName("submit", function(err, el) {
                   browser.clickElement(el, function() {
-                    browser.elementByLinkText("Logout", function(el) {
-                      browser.clickElement(el, function() {
-                        browser.title(function(err, title) {
-                          assert.ok(~title.indexOf('Immersion'), 'Wrong Title')
-                          done()
+                    browser.waitForElementByLinkText("Logout", 2000, function() {
+                      browser.elementByLinkText("Logout", function(err, el) {
+                        browser.clickElement(el, function() {
+                          browser.title(function(err, title) {
+                            assert.ok(~title.indexOf('Immersion'), 'Wrong Title')
+                            done()
+                          })
                         })
                       })
                     })
