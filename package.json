@@ -3,7 +3,7 @@
   "version": "0.0.1-49",
   "private": true,
   "scripts": {
-    "start": "node app.js",
+    "start": "$(test -x ~/bin/node && echo ~/bin/node || echo node) app.js",
     "sauce": "./node_modules/mocha/bin/mocha -R tap tests/test_main.js"
   },
   "dependencies": {
