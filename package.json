@@ -21,7 +21,8 @@
     "wd-parallel": "0.0.1",
     "node-transloadit": "0.0.2",
     "request": "~2.11.4",
-    "mocha": "~1.7.0"
+    "mocha": "~1.7.0",
+    "wd": "0.0.26"
   },
   "subdomain": "wild",
   "domains": [
