@@ -84,6 +84,6 @@ Immersion -- "wonderful immersive language directory"
 </pre>
 
   [http://nodejitsu.com]: http://nodejitsu.com
-  [http://aws.amazon.com/s3]: http://aws.amazon.com/s3/"
+  [http://aws.amazon.com/s3]: http://aws.amazon.com/s3
   [http://www.iriscouch.com]: http://www.iriscouch.com
 
