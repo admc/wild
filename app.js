@@ -10,6 +10,7 @@ var express = require('express')
   , partials = require('express-partials')
   , LocalStrategy = require('passport-local').Strategy
   , request = require('request')
+  , gt = require('wd-gtranslate')
   , transloadit = require('node-transloadit')
   , couchdb = require('nano')(process.env.COUCH_DB || 'localhost:5984')
   , users = couchdb.use('im_users')
@@ -18,7 +19,6 @@ var express = require('express')
   var tlCreds = {"auth_key":process.env.TL_AUTH_KEY || "",
                  "auth_secret": process.env.TL_AUTH_SECRET || ""};
   var tlClient = new transloadit(tlCreds.auth_key, tlCreds.auth_secret);
-
 
   app.use(partials());
 
@@ -185,6 +185,19 @@ io.sockets.on('connection', function (socket) {
         })
       }, 2000);
     });
+  });
+
+  socket.on('guessWord', function(data) {
+    var errfunc = function(e) {
+      data.results = e;
+      socket.emit('guessWordResult', data);
+    }
+    var cb = function(o) { 
+      data.results = o;
+      socket.emit('guessWordResult', data);
+    }
+
+    gt.gt().translate(errfunc, data.word, cb);
   });
 
   socket.on('startMedia', function(data) {

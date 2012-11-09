@@ -23,7 +23,8 @@
       var vDiv = $("<li>");
       var link = $("<a>");
       link.attr("href", "javascript:void(0);");
-      link.html(data.id);
+      link.html(data.name+" : An epic saga about rabbits");
+      link.attr("id", data.id);
       link.click(function() {
         window.currentURL = data.url;
         window.myPlayer.src(data.url);
@@ -31,6 +32,21 @@
       });
       vDiv.append(link);
       $("#mediaList").append(vDiv);
+    });
+
+    socket.on("guessWordResult", function (data) {
+      var guessBox = $("#"+data.guessId);
+      guessBox.find(".results").remove();
+      var guessResults = $("<div>");
+      guessResults.css("font-size","12px");
+      guessResults.addClass("results");
+      if (data.results.suggestion == "") {
+        guessResults.html("That word means: "+ data.results.output + "<br>"+data.results.language);
+      }
+      else {
+        guessResults.html("<a href='#'>"+ data.results.suggestion+"</a><br>"+data.results.language);
+      }
+      guessBox.append(guessResults);
     });
 
     socket.on("updateEntry", function (data) {
@@ -48,12 +64,25 @@
             jumpLink.css("cursor", "pointer");
             jumpLink.html("Jump to..");
             jumpLink.click(function() {
-              myPlayer.currentTime(wordLink.attr("when") - 3); 
+              myPlayer.currentTime(wordLink.attr("when") - 3);
             });
             vDiv.append(jumpLink);
 
             var transDiv = $("<div>");
-            transDiv.html("<h4>Enter your best guess:</h4>&nbsp;<input></input><button>Search</button>");
+            transDiv.attr("id", "guess-"+data.id);
+            transDiv.html("<h4>Enter your best guess:</h4>&nbsp;");
+            var searchInput = $("<input>");
+            searchInput.keydown(function(event) {
+              event.stopImmediatePropagation();
+            });
+            var searchButton = $("<button>");
+            searchButton.html("Search");
+            searchButton.click(function() {
+              socket.emit('guessWord', {guessId : 'guess-'+data.id, word: searchInput.attr("value") });
+              searchInput.attr("value", "");
+            });
+            transDiv.append(searchInput);
+            transDiv.append(searchButton);
             vDiv.append(transDiv);
 
             var tags = $("<div>");
@@ -66,7 +95,7 @@
             closeLink.html("Close");
             closeLink.click(function() {
               vDiv.remove();
-            }); 
+            });
             var saveLink= $("<a>");
             saveLink.css({"position":"absolute", "bottom":"10px", "right":"10px"});
             saveLink.css("cursor", "pointer");
@@ -74,8 +103,8 @@
             saveLink.click(function() {
               console.log('thanks');
             });
-            vDiv.append(closeLink); 
-            vDiv.append(saveLink); 
+            vDiv.append(closeLink);
+            vDiv.append(saveLink);
             $(document.body).append(vDiv);
             vDiv.center();
           });
